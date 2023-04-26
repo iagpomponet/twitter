@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "name": "Iago Silbernagel Pomponet",
+      "email": "iagosilbernagel@hotmail.com",
+      "password": "c",
+      "id": 1
+    },
+    {
+      "name": "Iago Silbernagel Pomponet",
+      "email": "iagosilbernagel@hotmail.com",
+      "password": "crudehumor",
+      "id": 2
+    }
+  ],
+  "auth": [
+    {
+      "email": "iagosilbernagel@hotmail.com",
+      "password": "crudehumor",
+      "id": 1
+    },
+    {
+      "email": "iagosilbernagel@hotmail.com",
+      "password": "crudehumor",
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

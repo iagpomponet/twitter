@@ -31,7 +31,7 @@ export const Input = styled.input`
   width: 100%;
   font-size: 15px;
   padding: 12px 8px 8px;
-  border: 1px solid #e1e8ed;
+  border: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 export const Button = styled.button`
@@ -60,4 +60,10 @@ export const SignupLinkSection = styled.div`
   gap: 4px;
   text-align: left;
   justify-content: flex-start;
+`;
+
+export const LoadingContainer = styled.div`
+  height: 160px;
+  display: flex;
+  align-items: center;
 `;

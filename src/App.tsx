@@ -3,11 +3,16 @@ import Login from "./pages/Login/Login";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Feed from "./pages/Feed/Feed";
+import TwitterTheme from "./Theme";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Feed />,
   },
   {
     path: "/login",
@@ -21,10 +26,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
-      <GlobalStyle />
-      <RouterProvider router={router} />;
-    </>
+    <QueryClientProvider client={queryClient}>
+      <TwitterTheme>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </TwitterTheme>
+      
+    </QueryClientProvider>
   );
 }
 

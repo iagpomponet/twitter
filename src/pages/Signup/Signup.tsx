@@ -1,5 +1,5 @@
 // Components
-import { Modal } from "antd";
+import { Modal, Spin } from "antd";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import TwitterIcon from "../../assets/TwitterIcon";
@@ -9,10 +9,11 @@ import { LOGIN } from "../../constants/routes";
 
 // Styles
 import * as css from "./Signup.styles";
+import { useCreateUser } from "../../services/user";
+import { UserPayload } from "../../services/user/types";
 
 const Signup = () => {
-  const emailRegex =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const { mutate: createUser, isLoading: createUserLoading } = useCreateUser();
   const {
     register,
     getValues,
@@ -22,37 +23,39 @@ const Signup = () => {
 
   const handleSubmit = () => {
     const values = getValues();
-    console.log("values :>> ", values);
+
+    console.log('values :>> ', values);
+    console.log('errors :>> ', errors);
+
+    createUser(values as UserPayload);
   };
 
-  console.log("errors :>> ", errors);
-
-  return (
-    <Modal footer={<div />} title="" open={true}>
-      <css.Container>
-        <TwitterIcon />
-        <css.Title>Create your account</css.Title>
-        <css.Form onSubmit={submit(handleSubmit)}>
+  const Form = () => {
+      return <css.Form onSubmit={submit(handleSubmit)}>
           <css.Input
-            {...(register("name"), { required: true })}
+            {...register("name", { required: true })}
             placeholder="Name"
           />
           <css.Input
-            {...(register("email"),
-            {
-              required: true,
-              pattern: emailRegex as unknown as string,
-            })}
+            {...register("email", { required: true })}
             placeholder="E-mail"
           />
           <css.Input
-            {...(register("password"), { required: true })}
+            {...register("password", { required: true })}
             type="password"
             placeholder="Password"
           />
 
           <css.Button type="submit">Sign up</css.Button>
         </css.Form>
+  }
+
+  return (
+    <Modal footer={<div />} title="" open={true}>
+      <css.Container>
+        <TwitterIcon />
+        <css.Title>Create your account</css.Title>
+        {createUserLoading ? <css.LoadingContainer><Spin /></css.LoadingContainer> : <Form />}
         <css.SignupLinkSection>
           Already have an account?
           <Link to={LOGIN}>Login</Link>

@@ -31,7 +31,7 @@ export const Input = styled.input`
   width: 100%;
   font-size: 15px;
   padding: 12px 8px 8px;
-  border: 1px solid #e1e8ed;
+  border: 1px solid ${(props) => props.theme.colors.border};
   color: #66757f;
 `;
 
@@ -70,4 +70,10 @@ export const FormColumn = styled.div`
   @media (max-width: 768px) {
     flex-wrap: wrap;
   }
+`;
+
+export const LoadingContainer = styled.div`
+  height: 220px;
+  display: flex;
+  align-items: center;
 `;
