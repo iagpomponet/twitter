@@ -1,21 +1,32 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2",
-    "typescript": "^5.0.4"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/node": "^18.16.1",
-    "nodemon": "^2.0.22"
-  }
+   "name": "server",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "create:useCase": "./useCase.sh",
+      "typeorm": "typeorm-ts-node-commonjs"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "cors": "^2.8.5",
+      "express": "^4.18.2",
+      "pg": "^8.4.0",
+      "reflect-metadata": "^0.1.13",
+      "typeorm": "0.3.15",
+      "uuid": "^9.0.0"
+   },
+   "devDependencies": {
+      "@types/express": "^4.17.17",
+      "@types/node": "^16.11.10",
+      "morgan": "^1.10.0",
+      "nodemon": "^2.0.22",
+      "reflect-metadata": "^0.1.13",
+      "ts-node": "10.7.0",
+      "typescript": "^5.0.4"
+   }
 }
