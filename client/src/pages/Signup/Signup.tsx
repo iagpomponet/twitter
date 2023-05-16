@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import TwitterIcon from "../../assets/TwitterIcon";
 
-//Hooks
+// Hooks
 import { useCreateUser } from "../../services/user";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,6 @@ import * as css from "./Signup.styles";
 // Types
 import { UserPayload } from "../../services/user/types";
 import { useEffect } from "react";
-import { AxiosError } from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -27,12 +26,7 @@ const Signup = () => {
     isSuccess: createUserSuccess,
     error,
   } = useCreateUser();
-  const {
-    register,
-    getValues,
-    handleSubmit: submit,
-    formState: { errors },
-  } = useForm();
+  const { register, getValues, handleSubmit: submit } = useForm();
 
   const handleSubmit = () => {
     const values = getValues();

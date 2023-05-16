@@ -23,3 +23,10 @@ export const FeedTitle = styled.span`
   font-size: 20px;
   font-weight: 600;
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+`;

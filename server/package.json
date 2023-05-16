@@ -4,7 +4,7 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "nodemon src/index.ts",
       "create:useCase": "./useCase.sh",
       "typeorm": "typeorm-ts-node-commonjs"
    },
@@ -13,8 +13,11 @@
    "license": "ISC",
    "dependencies": {
       "bcryptjs": "^2.4.3",
+      "cookie-parser": "^1.4.6",
       "cors": "^2.8.5",
+      "dotenv": "^16.0.3",
       "express": "^4.18.2",
+      "jsonwebtoken": "^9.0.0",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
       "typeorm": "0.3.15",

@@ -1,7 +1,5 @@
 export interface TweetProps {
-  user: string;
-  name: string;
-  profilePic: string;
+  user: any;
   likes: number;
   retweets: number;
   message: string;

@@ -1,11 +1,16 @@
 import GlobalStyle from "./globalStyles";
 import Login from "./pages/Login/Login";
 
+import { useGetUser } from "./services/user/index";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Feed from "./pages/Feed/Feed";
 import TwitterTheme from "./Theme";
+import { UserProvider, useUserData } from "./hooks/user";
+import { Spin } from "antd";
+import { LoadingSpinnerContainer } from "./component/Layout";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -24,14 +29,42 @@ const router = createBrowserRouter([
   },
 ]);
 
+function AppScaffolder() {
+  const {
+    data: user,
+    isLoading: userDataLoading,
+    isSuccess: userDataSuccess,
+  } = useGetUser();
+  const { setUser } = useUserData();
+
+  useEffect(() => {
+    if (userDataSuccess) {
+      setUser(user);
+    }
+  }, [userDataSuccess]);
+
+  if (userDataLoading) {
+    return (
+      <LoadingSpinnerContainer>
+        <Spin />
+      </LoadingSpinnerContainer>
+    );
+  }
+
+  return (
+    <TwitterTheme>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </TwitterTheme>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TwitterTheme>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-      </TwitterTheme>
-      
+      <UserProvider>
+        <AppScaffolder />
+      </UserProvider>
     </QueryClientProvider>
   );
 }

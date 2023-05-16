@@ -6,6 +6,11 @@ const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
     }
+
+  textarea {
+    resize: none;
+  }
+
   body {
     margin: 0;
     padding: 0;
