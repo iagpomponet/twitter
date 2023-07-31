@@ -1,7 +1,7 @@
 export interface Tweet {
   id: string;
   text: string;
-  likes: number;
+  likes: string;
   createdAt: string;
   user: User | null;
 }

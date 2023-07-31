@@ -5,11 +5,12 @@ import { useGetTweets } from "../../services/tweet";
 
 import * as css from "./Feed.styles";
 import TweetInput from "../../component/TweetInput/TweetInput";
+import { useUserData } from "../../hooks/user";
 
 const Feed = () => {
   const { data: tweets, isLoading: tweetsLoading } = useGetTweets();
+  const { user } = useUserData();
   // TODO: Feed should only be visible to logged in users otherwise redirect to login page
-  // TODO: Tweets component
   // TODO: Implement bootstrap endpoint
 
   console.log("tweets :>> ", tweets);
@@ -24,16 +25,22 @@ const Feed = () => {
             <Spin />
           </css.LoadingContainer>
         ) : null}
-        {tweets?.length &&
-          tweets?.map((tweet) => (
-            <Tweet
-              likes={tweet.likes}
-              key={tweet.id}
-              user={tweet.user}
-              message={tweet.text}
-              retweets={0}
-            />
-          ))}
+        {tweets?.length
+          ? tweets?.map((tweet) => {
+              const hasLiked = JSON.parse(tweet.likes)?.includes(user.id);
+              return (
+                <Tweet
+                  liked={hasLiked}
+                  id={tweet.id}
+                  likes={tweet.likes}
+                  key={tweet.id}
+                  user={tweet.user}
+                  message={tweet.text}
+                  retweets={0}
+                />
+              );
+            })
+          : null}
       </css.Feed>
     </css.PageContainer>
   );

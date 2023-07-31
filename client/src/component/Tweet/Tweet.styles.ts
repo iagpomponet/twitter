@@ -28,7 +28,7 @@ export const TweetFooter = styled.footer`
   margin-top: 10px;
 `;
 
-export const IconContainer = styled.div<{ color: string }>`
+export const IconContainer = styled.div<{ color: string; active?: boolean }>`
   transition: 0.2s;
 
   display: flex;
@@ -38,6 +38,17 @@ export const IconContainer = styled.div<{ color: string }>`
   width: fit-content;
 
   font-size: ${(props) => props.theme.fontSizes.small};
+
+  ${(props) =>
+    props.active
+      ? `
+    color: ${props.color};
+
+    svg, path, g {
+      fill: ${props.color};
+    }
+  `
+      : null}
 
   svg {
     width: 30px;

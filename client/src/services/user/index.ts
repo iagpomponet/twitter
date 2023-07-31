@@ -6,7 +6,10 @@ import { useMutation, useQuery } from "react-query";
 const getUser = () =>
   api.get("/users").then((response: AxiosResponse) => response.data);
 
-export const useGetUser = () => useQuery("user", getUser);
+export const useGetUser = (enabled: boolean) =>
+  useQuery("user", getUser, {
+    enabled,
+  });
 
 export const createUser = (payload: UserPayload) =>
   api.post("/users", payload).then((response: AxiosResponse) => response.data);

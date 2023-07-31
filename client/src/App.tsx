@@ -2,7 +2,12 @@ import GlobalStyle from "./globalStyles";
 import Login from "./pages/Login/Login";
 
 import { useGetUser } from "./services/user/index";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Feed from "./pages/Feed/Feed";
@@ -11,6 +16,7 @@ import { UserProvider, useUserData } from "./hooks/user";
 import { Spin } from "antd";
 import { LoadingSpinnerContainer } from "./component/Layout";
 import { useEffect } from "react";
+import { LOGIN, SIGNUP } from "./constants/routes";
 
 const queryClient = new QueryClient();
 
@@ -30,11 +36,12 @@ const router = createBrowserRouter([
 ]);
 
 function AppScaffolder() {
+  const location = window.location;
   const {
     data: user,
     isLoading: userDataLoading,
     isSuccess: userDataSuccess,
-  } = useGetUser();
+  } = useGetUser(location.pathname !== LOGIN && location.pathname !== SIGNUP);
   const { setUser } = useUserData();
 
   useEffect(() => {

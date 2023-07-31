@@ -1,3 +1,8 @@
+import {
+  authCookieConfig,
+  authCookieName,
+  generateAccessToken,
+} from "../../../../utils/auth";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 import { Request, Response } from "express";
 
@@ -27,7 +32,13 @@ export class CreateUserController {
         email,
         password,
       });
-      return res.status(201).json(user);
+
+      const token = generateAccessToken(String(user.id));
+
+      return res
+        .cookie(authCookieName, token, authCookieConfig)
+        .status(201)
+        .json(user);
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }

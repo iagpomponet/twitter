@@ -31,5 +31,7 @@ export class CreateUserUseCase {
     });
 
     await repo.save(user);
+
+    return user;
   }
 }

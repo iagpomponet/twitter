@@ -4,9 +4,22 @@ import RetweetIcon from "../../assets/RetweetIcon";
 import * as css from "./Tweet.styles";
 import { TweetProps } from "./Tweet.types";
 import LikeIcon from "../../assets/LikeIcon";
+import { useLikeTweets } from "../../services/tweet";
+import { useQueryClient } from "react-query";
 
-const Tweet = ({ user, message, likes, retweets }: TweetProps) => {
+const Tweet = ({ id, user, message, likes, retweets, liked }: TweetProps) => {
+  const queryClient = useQueryClient();
   const theme = useTheme();
+  const numOfLikes = JSON.parse(likes)?.length || 0;
+  const { mutateAsync } = useLikeTweets();
+
+  const handleLike = async () => {
+    await mutateAsync({ tweet: id });
+    queryClient.invalidateQueries("tweets");
+  };
+
+  // Handle fill hearth if user has liked
+  // Check bugs
 
   return (
     <css.Tweet>
@@ -16,7 +29,7 @@ const Tweet = ({ user, message, likes, retweets }: TweetProps) => {
       <css.TweetContainer>
         <css.TweetHeader>
           <css.TweetName>{user.fullName}</css.TweetName>
-          <css.TweetUsername>{user.username}</css.TweetUsername>
+          <css.TweetUsername>@{user.username}</css.TweetUsername>
         </css.TweetHeader>
         <css.TweetContent>{message}</css.TweetContent>
 
@@ -24,7 +37,7 @@ const Tweet = ({ user, message, likes, retweets }: TweetProps) => {
         <css.TweetFooter>
           <css.IconContainer color={(theme as any).colors.primary}>
             <CommentIcon />
-            <span>8</span>
+            <span>0</span>
           </css.IconContainer>
 
           <css.IconContainer color="#19cf86">
@@ -32,9 +45,13 @@ const Tweet = ({ user, message, likes, retweets }: TweetProps) => {
             <span>{retweets}</span>
           </css.IconContainer>
 
-          <css.IconContainer color={(theme as any).colors.accent}>
-            <LikeIcon />
-            <span>{likes}</span>
+          <css.IconContainer
+            active={liked}
+            onClick={handleLike}
+            color={(theme as any).colors.accent}
+          >
+            <LikeIcon active={liked} />
+            <span>{numOfLikes}</span>
           </css.IconContainer>
         </css.TweetFooter>
       </css.TweetContainer>

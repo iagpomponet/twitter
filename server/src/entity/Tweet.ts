@@ -19,8 +19,8 @@ export class Tweet {
   @Column()
   text: string;
 
-  @Column({ default: 0 })
-  likes: number;
+  @Column({ type: "text", nullable: true })
+  likes: string[];
 
   @ManyToOne(() => User, (user) => user.tweets)
   user: User;
