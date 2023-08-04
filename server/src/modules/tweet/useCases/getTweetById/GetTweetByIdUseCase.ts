@@ -1,19 +1,18 @@
 import { AppDataSource } from "../../../../data-source";
 
 interface GetTweetsProps {
-  userId: string;
+  id: string;
 }
 
-export class GetTweetsUseCase {
-  async execute({ userId }: GetTweetsProps) {
+export class GetTweetByIdUseCase {
+  async execute({ id }: GetTweetsProps) {
     const repo = AppDataSource.getRepository("Tweet");
-
-    // TODO: Feature to return all followers tweets
-    // TODO: Feature tweets from a user
-    // TODO: When fetching tweets from ones followers i must not show tweets that are replies
 
     try {
       const tweets = await repo.find({
+        where: {
+          id,
+        },
         order: {
           createdAt: "DESC",
         },
@@ -39,7 +38,11 @@ export class GetTweetsUseCase {
         },
       });
 
-      return tweets;
+      if (!tweets.length) {
+        throw new Error("No tweet found");
+      }
+
+      return tweets[0];
     } catch (err) {
       throw new Error(err);
     }

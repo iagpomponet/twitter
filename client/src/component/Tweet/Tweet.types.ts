@@ -5,4 +5,5 @@ export interface TweetProps {
   message: string;
   id: string;
   liked: boolean;
+  type?: "feed" | "details";
 }

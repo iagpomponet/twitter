@@ -15,3 +15,11 @@ const likeTweet = ({ tweet }: { tweet: string }) =>
   api.post(`/tweets/${tweet}/likes`);
 
 export const useLikeTweets = () => useMutation(likeTweet);
+
+export const getTweetById = (id?: string) =>
+  api.get(`/tweets/${id}`).then((res) => res.data);
+
+export const useGetTweetById = ({ id }: { id?: string }) =>
+  useQuery("tweetDetails", () => getTweetById(id), {
+    enabled: !!id,
+  });

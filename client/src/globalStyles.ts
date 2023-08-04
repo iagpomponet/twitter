@@ -26,6 +26,10 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
   }
 
+  .flex {
+    display: flex;
+  }
+
 `;
 
 export default GlobalStyle;

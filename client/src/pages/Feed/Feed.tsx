@@ -15,34 +15,31 @@ const Feed = () => {
 
   console.log("tweets :>> ", tweets);
   return (
-    <css.PageContainer>
-      <SideMenu />
-      <css.Feed>
-        <css.FeedTitle>Página Inicial</css.FeedTitle>
-        <TweetInput profilePic="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" />
-        {tweetsLoading ? (
-          <css.LoadingContainer>
-            <Spin />
-          </css.LoadingContainer>
-        ) : null}
-        {tweets?.length
-          ? tweets?.map((tweet) => {
-              const hasLiked = JSON.parse(tweet.likes)?.includes(user.id);
-              return (
-                <Tweet
-                  liked={hasLiked}
-                  id={tweet.id}
-                  likes={tweet.likes}
-                  key={tweet.id}
-                  user={tweet.user}
-                  message={tweet.text}
-                  retweets={0}
-                />
-              );
-            })
-          : null}
-      </css.Feed>
-    </css.PageContainer>
+    <css.Feed>
+      <css.FeedTitle>Página Inicial</css.FeedTitle>
+      <TweetInput profilePic="https://miro.medium.com/max/316/1*LGHbA9o2BKka2obwwCAjWg.jpeg" />
+      {tweetsLoading ? (
+        <css.LoadingContainer>
+          <Spin />
+        </css.LoadingContainer>
+      ) : null}
+      {tweets?.length
+        ? tweets?.map((tweet) => {
+            const hasLiked = JSON.parse(tweet.likes)?.includes(user.id);
+            return (
+              <Tweet
+                liked={hasLiked}
+                id={tweet.id}
+                likes={tweet.likes}
+                key={tweet.id}
+                user={tweet.user}
+                message={tweet.text}
+                retweets={0}
+              />
+            );
+          })
+        : null}
+    </css.Feed>
   );
 };
 

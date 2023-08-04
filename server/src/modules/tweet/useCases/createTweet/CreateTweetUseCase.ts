@@ -9,8 +9,6 @@ export class CreateTweetUseCase {
   async execute({ id, text }: CreateTweetProps) {
     const repo = AppDataSource.getRepository("Tweet");
 
-    console.log("id :>> ", id);
-
     const tweet = repo.create({
       text,
       createdAt: new Date(),

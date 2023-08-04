@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
-export const Tweet = styled.article`
+export const Tweet = styled.article<{ type: string }>`
   display: flex;
-  padding: 1rem 1rem 0.5rem 1rem;
   transition: 0.2s;
-  border-top: 1px solid ${(props) => props.theme.colors.border};
+  ${(props) =>
+    props.type === "feed"
+      ? `border-top: 1px solid ${props.theme.colors.border};
+    cursor: pointer;
 
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f5f8fa;
-  }
+    &:hover {
+      background-color: #f5f8fa;
+    }
+    `
+      : `
+        flex-wrap: wrap;
+      `}
 `;
 
 export const TweetHeader = styled.header`
@@ -18,26 +22,41 @@ export const TweetHeader = styled.header`
   display: flex;
   gap: 4px;
   margin-bottom: 5px;
+  padding: 1rem 0.5rem 10px 0.5rem;
 `;
 
-export const TweetBody = styled.div``;
+export const TweetBody = styled.div`
+  width: 100%;
+  padding: 0 1rem;
+`;
 
-export const TweetFooter = styled.footer`
-  display: flex;
-  gap: 2rem;
-  margin-top: 10px;
+export const TweetFooter = styled.footer<{ type: string }>`
+  ${({ type, theme }) =>
+    type === "feed"
+      ? `
+        display: flex;
+        gap: 2rem;
+        margin: 20px 0 10px 0;`
+      : `
+          padding: 0 1rem;
+          display: flex;
+          align-items: center;
+          margin-top: 32px;
+          gap: 4rem;
+          width: 100%;
+          padding: 10px 1rem 8px 1rem;
+          border-top: 1px solid ${theme.colors.border};
+        `}
 `;
 
 export const IconContainer = styled.div<{ color: string; active?: boolean }>`
   transition: 0.2s;
-
   display: flex;
   align-items: center;
   gap: 4px;
-
   width: fit-content;
-
   font-size: ${(props) => props.theme.fontSizes.small};
+  cursor: pointer;
 
   ${(props) =>
     props.active
@@ -67,7 +86,9 @@ export const IconContainer = styled.div<{ color: string; active?: boolean }>`
   }
 `;
 
-export const TweetContainer = styled.div``;
+export const TweetContainer = styled.div`
+  width: 100%;
+`;
 
 export const TweetName = styled.span`
   font-weight: 600;
@@ -86,12 +107,37 @@ export const TweetAvatar = styled.img`
 
 export const TweetAvatarContainer = styled.div`
   display: flex;
+  margin-left: 1rem;
+  padding: 1rem 0;
 `;
 
-export const TweetContent = styled.div`
-  padding-left: 7px;
+export const TweetContent = styled.div<{ type: string }>`
+  ${({ type }) =>
+    type === "feed" ? `  padding: 0 0.5rem;` : `padding: 0 1rem;`}
 `;
 
 export const TweetUsername = styled.div`
   color: ${(props) => props.theme.colors.text};
+`;
+
+export const DateDetails = styled.span`
+  display: block;
+  padding: 0 1rem;
+  margin-top: 20px;
+  color: ${(props) => props.theme.colors.gray};
+  font-weight: 400;
+  font-size: 15px;
+`;
+
+export const DetailsHeader = styled.header`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 1rem;
+`;
+
+export const DetailsUserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

@@ -36,6 +36,14 @@ export class Tweet {
 
   // TODO: Implement replies - replies should be just more tweets
 
+  // this is the replies to the current tweet
+  @OneToMany(() => Tweet, (tweet) => tweet.replyToTweet)
+  replies: Tweet[];
+
+  // this is what tells me if this tweet is a replie to another one
+  @ManyToOne(() => Tweet, (tweet) => tweet.replies, { nullable: true })
+  replyToTweet: Tweet;
+
   constructor() {
     if (!this.id) {
       this.id = uuid();

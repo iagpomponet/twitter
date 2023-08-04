@@ -6,8 +6,18 @@ import { TweetProps } from "./Tweet.types";
 import LikeIcon from "../../assets/LikeIcon";
 import { useLikeTweets } from "../../services/tweet";
 import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
-const Tweet = ({ id, user, message, likes, retweets, liked }: TweetProps) => {
+const Tweet = ({
+  id,
+  user,
+  message,
+  likes,
+  retweets,
+  liked,
+  type = "feed",
+}: TweetProps) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const theme = useTheme();
   const numOfLikes = JSON.parse(likes)?.length || 0;
@@ -16,25 +26,49 @@ const Tweet = ({ id, user, message, likes, retweets, liked }: TweetProps) => {
   const handleLike = async () => {
     await mutateAsync({ tweet: id });
     queryClient.invalidateQueries("tweets");
+    queryClient.invalidateQueries("tweetDetails");
+  };
+
+  const handleClick = () => {
+    if (type === "feed") {
+      navigate(`/tweet/${id}`);
+    }
   };
 
   // Handle fill hearth if user has liked
   // Check bugs
 
   return (
-    <css.Tweet>
-      <css.TweetAvatarContainer>
-        <css.TweetAvatar src={user.profilePic} alt="Profile pic" />
-      </css.TweetAvatarContainer>
+    <css.Tweet onClick={handleClick} type={type}>
+      {type === "details" ? (
+        <css.DetailsHeader>
+          <css.TweetAvatar src={user.profilePic} alt="Profile pic" />
+          <css.DetailsUserInfo>
+            <css.TweetName>{user.fullName}</css.TweetName>
+            <css.TweetUsername>@{user.username}</css.TweetUsername>
+          </css.DetailsUserInfo>
+        </css.DetailsHeader>
+      ) : (
+        <css.TweetAvatarContainer>
+          <css.TweetAvatar src={user.profilePic} alt="Profile pic" />
+        </css.TweetAvatarContainer>
+      )}
+
       <css.TweetContainer>
-        <css.TweetHeader>
-          <css.TweetName>{user.fullName}</css.TweetName>
-          <css.TweetUsername>@{user.username}</css.TweetUsername>
-        </css.TweetHeader>
-        <css.TweetContent>{message}</css.TweetContent>
+        {type === "feed" ? (
+          <css.TweetHeader>
+            <css.TweetName>{user.fullName}</css.TweetName>
+            <css.TweetUsername>@{user.username}</css.TweetUsername>
+          </css.TweetHeader>
+        ) : null}
+        <css.TweetContent type={type}>{message}</css.TweetContent>
+
+        {type === "details" ? (
+          <css.DateDetails>7:03 PM · 3 de ago de 2023</css.DateDetails>
+        ) : null}
 
         {/* Bottom tweet nav */}
-        <css.TweetFooter>
+        <css.TweetFooter type={type}>
           <css.IconContainer color={(theme as any).colors.primary}>
             <CommentIcon />
             <span>0</span>

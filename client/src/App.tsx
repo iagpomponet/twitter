@@ -17,6 +17,8 @@ import { Spin } from "antd";
 import { LoadingSpinnerContainer } from "./component/Layout";
 import { useEffect } from "react";
 import { LOGIN, SIGNUP } from "./constants/routes";
+import SideMenu from "./component/SideMenu/SideMenu";
+import TweetDetails from "./pages/TweetDetails/TweetDetails";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/tweet/:tweet_id",
+    element: <TweetDetails />,
   },
 ]);
 
@@ -61,7 +67,10 @@ function AppScaffolder() {
   return (
     <TwitterTheme>
       <GlobalStyle />
-      <RouterProvider router={router} />
+      <div className="flex">
+        <SideMenu />
+        <RouterProvider router={router} />
+      </div>
     </TwitterTheme>
   );
 }
