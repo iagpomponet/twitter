@@ -26,6 +26,9 @@ const Feed = () => {
       {tweets?.length
         ? tweets?.map((tweet) => {
             const hasLiked = JSON.parse(tweet.likes)?.includes(user.id);
+            if (tweet.replyToTweet) {
+              return;
+            }
             return (
               <Tweet
                 liked={hasLiked}

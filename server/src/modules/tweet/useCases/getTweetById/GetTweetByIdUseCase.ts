@@ -26,6 +26,7 @@ export class GetTweetByIdUseCase {
             },
             createdAt: true,
             likes: true,
+            text: true,
           },
           replyToTweet: {
             id: true,

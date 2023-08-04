@@ -16,12 +16,15 @@ const Tweet = ({
   retweets,
   liked,
   type = "feed",
+  replies,
 }: TweetProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const theme = useTheme();
   const numOfLikes = JSON.parse(likes)?.length || 0;
   const { mutateAsync } = useLikeTweets();
+
+  console.log("replies :>> ", replies);
 
   const handleLike = async () => {
     await mutateAsync({ tweet: id });
@@ -89,6 +92,22 @@ const Tweet = ({
           </css.IconContainer>
         </css.TweetFooter>
       </css.TweetContainer>
+      <css.ReplieList>
+        {replies
+          ? replies.map((replie) => {
+              return (
+                <Tweet
+                  user={replie.user}
+                  likes={replie.likes}
+                  retweets={0}
+                  message={replie.text}
+                  id={""}
+                  liked={false}
+                />
+              );
+            })
+          : null}
+      </css.ReplieList>
     </css.Tweet>
   );
 };

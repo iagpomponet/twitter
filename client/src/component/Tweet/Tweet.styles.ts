@@ -18,11 +18,10 @@ export const Tweet = styled.article<{ type: string }>`
 `;
 
 export const TweetHeader = styled.header`
-  padding-left: 7px;
   display: flex;
   gap: 4px;
   margin-bottom: 5px;
-  padding: 1rem 0.5rem 10px 0.5rem;
+  padding: 1rem 0.5rem 0 0.5rem;
 `;
 
 export const TweetBody = styled.div`
@@ -36,7 +35,7 @@ export const TweetFooter = styled.footer<{ type: string }>`
       ? `
         display: flex;
         gap: 2rem;
-        margin: 20px 0 10px 0;`
+        margin: 10px 0 10px 0;`
       : `
           padding: 0 1rem;
           display: flex;
@@ -138,6 +137,11 @@ export const DetailsHeader = styled.header`
 `;
 
 export const DetailsUserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ReplieList = styled.section`
   display: flex;
   flex-direction: column;
 `;

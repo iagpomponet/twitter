@@ -19,6 +19,8 @@ const TweetDetails = ({}: TweetDetailsProps) => {
   const { tweet_id: id } = useParams();
   const { data, isLoading: isTweetLoading } = useGetTweetById({ id });
 
+  console.log("data :>> ", data);
+
   useEffect(() => {
     if (data) {
       setHasLiked(JSON.parse(data.likes)?.includes(userId));
@@ -40,6 +42,7 @@ const TweetDetails = ({}: TweetDetailsProps) => {
       ) : (
         // TODO: Planning to add a prop and custom the component to some kind of full mode where it fills the page and we can see the comments
         <Tweet
+          replies={data.replies}
           type="details"
           user={data.user}
           likes={data.likes}
