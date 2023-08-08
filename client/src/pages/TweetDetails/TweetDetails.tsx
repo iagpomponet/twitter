@@ -19,8 +19,6 @@ const TweetDetails = ({}: TweetDetailsProps) => {
   const { tweet_id: id } = useParams();
   const { data, isLoading: isTweetLoading } = useGetTweetById({ id });
 
-  console.log("data :>> ", data);
-
   useEffect(() => {
     if (data) {
       setHasLiked(JSON.parse(data.likes)?.includes(userId));

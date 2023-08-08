@@ -9,7 +9,7 @@ export class ReplyTweetController {
     // so i need content, userId and tweetId
     const userId = (req as any).user.id;
     const tweetId = req.params.tweet_id;
-    const content = req.body;
+    const content = req.body.content;
 
     try {
       const response = await service.execute({

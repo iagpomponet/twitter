@@ -31,6 +31,7 @@ const Feed = () => {
             }
             return (
               <Tweet
+                replies={tweet.replies}
                 liked={hasLiked}
                 id={tweet.id}
                 likes={tweet.likes}

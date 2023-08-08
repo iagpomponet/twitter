@@ -23,3 +23,9 @@ export const useGetTweetById = ({ id }: { id?: string }) =>
   useQuery("tweetDetails", () => getTweetById(id), {
     enabled: !!id,
   });
+
+const replyToTweet = ({ id, content }: { id: string; content: string }) => {
+  return api.post(`/tweets/${id}/reply`, { content }).then((res) => res.data);
+};
+
+export const useReplyToTweet = () => useMutation(replyToTweet);

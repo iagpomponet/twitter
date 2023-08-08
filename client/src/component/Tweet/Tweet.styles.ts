@@ -37,6 +37,7 @@ export const TweetFooter = styled.footer<{ type: string }>`
         gap: 2rem;
         margin: 10px 0 10px 0;`
       : `
+        border-bottom: 1px solid ${theme.colors.border};
           padding: 0 1rem;
           display: flex;
           align-items: center;
@@ -144,4 +145,37 @@ export const DetailsUserInfo = styled.div`
 export const ReplieList = styled.section`
   display: flex;
   flex-direction: column;
+`;
+
+export const ReplyInputSection = styled.section`
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
+export const ReplyInput = styled.input`
+  border: 0;
+  font-size: 20px;
+  outline: 0;
+`;
+
+export const Button = styled.button`
+  margin-left: auto;
+  margin-top: 1rem;
+  background-color: ${(props) => props.theme.colors.green};
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  max-width: 100px;
+  height: 40px;
+  padding: 0;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.6;
+  }
 `;
